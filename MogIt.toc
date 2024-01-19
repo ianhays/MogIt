@@ -1,7 +1,7 @@
 ## Interface: 100200
 ## Title: MogIt
 ## Author: Aelobin (The Maelstrom EU) & Lombra (Defias Brotherhood EU)
-## Version: @project-version@
+## Version: v3.10.1
 ## IconTexture: Interface\Icons\INV_Enchant_EssenceCosmicGreater
 ## SavedVariables: MogItDB, MogItWishlist
 ## Notes: Transmogrification Assistant
