@@ -79,9 +79,9 @@ function mog.base.Dropdown(module, tier)
 	end
 end
 
-function mog.base:FrameUpdate(frame, value)
+function mog.base:FrameUpdate(frame, value) -- value is BuildList mog.list object which is a matching between a visualID object and a list of associated ItemID objects
 	local items = {}
-	for i, source in ipairs(value) do
+	for i, source in ipairs(value) do -- build up an items array containing an item for each "source" in the given value ipairs array
 		tinsert(items, (select(6, C_TransmogCollection.GetAppearanceSourceInfo(source))))
 	end
 	frame.data.items = items;
@@ -122,10 +122,10 @@ local function itemSort(a, b)
 	end
 end
 
-local function buildList(module, slot, list, items)
+local function buildList(module, slot, list, items) -- calls filters on each individual item in the module/slot
 	for _, item in ipairs(slot) do
 		if mog:CheckFilters(module, item) then
-			local display = mog:GetData("item", item, "display");
+			local display = mog:GetData("item", item, "display"); -- "list" is a Dictionary matching an item Display data against a list of associated items (i.e. displayID to itemID)
 			if display then
 				if not items[display] then
 					items[display] = {};
@@ -137,7 +137,7 @@ local function buildList(module, slot, list, items)
 	end
 end
 
-function mog.base.BuildList(module)
+function mog.base.BuildList(module) -- calls filters on each individual item in the module/slot
 	wipe(list);
 	local items = {};
 	if module.active then
@@ -164,7 +164,7 @@ mog.base.Help = {
 }
 
 function mog.base.GetFilterArgs(filter,item)
-	if filter == "name" or filter == "level" or filter == "quality" or filter == "itemLevel" or filter == "bind" or filter == "hasItem" or filter == "chestType" then
+	if filter == "name" or filter == "level" or filter == "quality" or filter == "itemLevel" or filter == "bind" or filter == "hasItem" or filter == "chestType"or filter == "wishlisted" then
 		return item;
 	elseif filter == "source" then
 		return mog:GetData("item", item, "source"),mog:GetData("item", item, "sourceinfo");
@@ -217,6 +217,9 @@ for _, addon in ipairs(mog.baseModules) do
 				"quality",
 				"bind",
 				"chestType",
+				"wishlisted",
+				"slot",
+				"hasItem"
 				-- (addon == "MogIt_OneHanded" and "slot") or nil,
 			},
 			sorting = {
@@ -224,10 +227,6 @@ for _, addon in ipairs(mog.baseModules) do
 			},
 			sorts = {},
 		});
-		if module then
-			-- dirty fix for now - if the "slot" filter is not present the array is broken unless we do this
-			tinsert(module.filters, "hasItem");
-		end
 	end
 end
 --//

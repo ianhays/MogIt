@@ -107,7 +107,7 @@ function mog:FilterUpdate()
 	
 	local height = 20;
 	local last;
-	for k,v in ipairs(mog.active.filters) do
+	for k,v in ipairs(mog.active.filters) do -- TODO fix UI 
 		local filter = mog.filters[v];
 		if filter and (not filter.slot or (mog.active.active and filter.slot == mog.active.active.label)) then
 			filter:ClearAllPoints();
@@ -131,7 +131,7 @@ function mog:FilterUpdate()
 	mog.filt.frame:SetHeight(height);
 end
 
-function mog:CheckFilters(module,value)
+function mog:CheckFilters(module,value) -- This is where each individual filter f.Filter function is called on the items
 	if module.filters and module.GetFilterArgs then
 		for _,filter in ipairs(module.filters) do
 			local filterObject = mog:GetFilter(filter);

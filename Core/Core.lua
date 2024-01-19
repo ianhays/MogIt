@@ -101,7 +101,7 @@ function mog:RegisterModule(name,version,data)
 	return data;
 end
 
-function mog:SetModule(module,text)
+function mog:SetModule(module,text) -- Calls BuildList, which applies filters to all items in
 	if mog.active and mog.active ~= module and mog.active.Unlist then
 		mog.active:Unlist(module);
 	end
